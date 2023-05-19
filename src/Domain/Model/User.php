@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Terricon\Forum\Model;
+namespace Terricon\Forum\Domain\Model;
 
 class User
 {
