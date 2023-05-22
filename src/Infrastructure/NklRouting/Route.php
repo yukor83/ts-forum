@@ -2,9 +2,11 @@
 declare(strict_types=1);
 
 
-namespace Terricon\Forum\Infrastructure\Routing;
+namespace Terricon\Forum\Infrastructure\NklRouting;
 
-class Route
+use Terricon\Forum\Infrastructure\Routing\RouteInterface;
+
+class Route implements RouteInterface
 {
     public function __construct(
         private readonly string $controller,

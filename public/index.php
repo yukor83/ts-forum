@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Terricon\Forum\Infrastructure\Routing\Router;
+use Terricon\Forum\Infrastructure\NklRouting\Router;
 
 require_once '../vendor/autoload.php';
 

@@ -2,9 +2,11 @@
 declare(strict_types=1);
 
 
-namespace Terricon\Forum\Infrastructure\Routing;
+namespace Terricon\Forum\Infrastructure\NklRouting;
 
-class Router
+use Terricon\Forum\Infrastructure\Routing\RouterInterface;
+
+class Router implements RouterInterface
 {
     public function __construct(
         private readonly array $routes,
@@ -67,6 +69,12 @@ class Router
         }
 
         return $uriParams;
+    }
+
+    public function generateUri(string $name, array $parameters = []): string
+    {
+        throw new \Exception('Not implemented');
+        // TODO: Implement generateUri() method.
     }
 
 }
