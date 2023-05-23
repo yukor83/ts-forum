@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+
 namespace Terricon\Forum\Infrastructure\YukorRouting;
 
 use Terricon\Forum\Infrastructure\Routing\RouterInterface;
@@ -12,30 +13,69 @@ class Router implements RouterInterface
         private readonly string $requestUri,
         private readonly string $requestMethod
     ) {
-
     }
 
     public function run(): void
     {
-        $this->getRoute();
+        $route = $this->getRoute();
+        $controller = new ($route->getController());
+        $action = $route->getAction();
+        $parameters = $route->getParameters();
+        $controller->$action(...$parameters);
     }
 
-    /*
-    /topic/show/2423423/page/2
-    */
     public function getRoute(): Route
     {
-        $uriParams = explode('/', $this->requestUri);
-        
+        $requestParts = explode('/', $this->requestUri);
 
-        dump($uriParams);
-        dump($this->routes);
+        foreach ($this->routes as $route) {
+            $requestUriParam = [];
+            $matchCount=0;
+            $patternParts = explode('/', $route['path']);
 
+            if ($route['method'] === $this->requestMethod) {
+                if (count($patternParts) == count($requestParts)) {
+                    for ($i = 0; $i < count($patternParts); $i++)
+                    {
+                        switch ($patternParts[$i]) {
+                            case $requestParts[$i] :
+                                $matchCount++;
+                                break;
+                            case '{UUID}' :
+                                if (preg_match('/[a-zA-Z0-9]/', $requestParts[$i])) {
+                                    $matchCount++;
+                                    array_push($requestUriParam, '{UUID}='.$requestParts[$i]);
+                                };
+                                break;
+                            case '{ID}' : 
+                                if (preg_match('/[[:digit:]]/', $requestParts[$i])) {
+                                    $matchCount++;
+                                    array_push($requestUriParam, '{ID}='.$requestParts[$i]);
+                                };
+                                break;
+                        }  
+                    }
+                    break;
+                }
+            }
+        }
+
+        if ($matchCount == count($patternParts)) {
+            return new Route(
+                controller: $route['handler']['controller'],
+                action: $route['handler']['action'],
+                parameters: $requestUriParam
+            );
+            
+        } else {
+            throw new \Exception('Route not found');
+        }        
     }
 
     public function generateUri(string $name, array $parameters = []): string
     {
-
+        throw new \Exception('Not implemented');
+        // TODO: Implement generateUri() method.
     }
 
 }
