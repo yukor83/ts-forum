@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Terricon\Forum\Application\Controller\DefaultController;
@@ -11,8 +12,8 @@ return [
         'path' => '/',
         'handler' => [
             'controller' => DefaultController::class,
-            'action' => 'index'
-        ]
+            'action' => 'index',
+        ],
     ],
     [
         'name' => 'app.topic.show',
@@ -20,8 +21,8 @@ return [
         'path' => '/topic/show/{UUID}',
         'handler' => [
             'controller' => ForumController::class,
-            'action' => 'showTopic'
-        ]
+            'action' => 'showTopic',
+        ],
     ],
     [
         'name' => 'app.topic.show.page',
@@ -29,8 +30,8 @@ return [
         'path' => '/topic/show/{UUID}/page/{N}',
         'handler' => [
             'controller' => ForumController::class,
-            'action' => 'showTopic'
-        ]
+            'action' => 'showTopic',
+        ],
     ],
     [
         'name' => 'app.topic.create.form',
@@ -38,8 +39,8 @@ return [
         'path' => '/topic/create',
         'handler' => [
             'controller' => ForumController::class,
-            'action' => 'createTopic'
-        ]
+            'action' => 'createTopic',
+        ],
     ],
     [
         'name' => 'app.topic.create.process',
@@ -47,8 +48,8 @@ return [
         'path' => '/topic/create',
         'handler' => [
             'controller' => ForumController::class,
-            'action' => 'createTopic'
-        ]
+            'action' => 'createTopic',
+        ],
     ],
     [
         'name' => 'app.topic-message.create.process',
@@ -56,7 +57,7 @@ return [
         'path' => '/topic-message/create',
         'handler' => [
             'controller' => ForumController::class,
-            'action' => 'createTopicMessage'
-        ]
-    ]
+            'action' => 'createTopicMessage',
+        ],
+    ],
 ];

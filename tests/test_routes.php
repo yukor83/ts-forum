@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use Terricon\Forum\Tests\MockController;
 
 $uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';
+
 return [
 //    [
 //        'name' => 'app.index',
@@ -20,12 +22,12 @@ return [
         'method' => ['GET'],
         'path' => '/topic/show/{UUID}',
         'parameters' => [
-            'UUID' => $uuidRegExp // UUID v4
+            'UUID' => $uuidRegExp, // UUID v4
         ],
         'handler' => [
             'controller' => MockController::class,
-            'action' => 'showTopic'
-        ]
+            'action' => 'showTopic',
+        ],
     ],
     [
         'name' => 'app.topic.show.page',
@@ -33,12 +35,12 @@ return [
         'path' => '/topic/show/{UUID}/page/{PageNumber}',
         'parameters' => [
             'PageNumber' => '\d+',
-            'UUID' => $uuidRegExp // UUID v4
+            'UUID' => $uuidRegExp, // UUID v4
         ],
         'handler' => [
             'controller' => MockController::class,
-            'action' => 'showTopic'
-        ]
+            'action' => 'showTopic',
+        ],
     ],
     [
         'name' => 'app.topic.create',
@@ -47,8 +49,8 @@ return [
         'parameters' => [],
         'handler' => [
             'controller' => MockController::class,
-            'action' => 'createTopic'
-        ]
+            'action' => 'createTopic',
+        ],
     ],
     [
         'name' => 'app.topic-message.create.process',
@@ -57,7 +59,7 @@ return [
         'parameters' => [],
         'handler' => [
             'controller' => MockController::class,
-            'action' => 'createTopicMessage'
-        ]
-    ]
+            'action' => 'createTopicMessage',
+        ],
+    ],
 ];

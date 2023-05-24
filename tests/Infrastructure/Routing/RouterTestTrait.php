@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Tests\Infrastructure\Routing;
 
@@ -10,22 +10,19 @@ use Terricon\Forum\Infrastructure\Routing\RouterInterface;
 
 trait RouterTestTrait
 {
-
     abstract public function getTestingRouter(): RouterInterface;
 
     abstract public function getRouterConfig(): array;
 
-
     public function testGetRoute(): void
     {
         $router = $this->getTestingRouter();
-        foreach($this->getRouterConfig() as $allowedRoute){
+        foreach ($this->getRouterConfig() as $allowedRoute) {
             $testingUri = $this->getTestingRequestUri($allowedRoute);
-            foreach($allowedRoute['method'] as $method){
+            foreach ($allowedRoute['method'] as $method) {
                 self::assertInstanceOf(RouteInterface::class, $router->getRoute($testingUri, $method));
             }
         }
-
     }
 
     public function testGenerateUriSuccess(): void
@@ -41,12 +38,12 @@ trait RouterTestTrait
 
     private function getTestingRequestUri(array $route, ?array $uriParams = null): string
     {
-        if(!$uriParams){
+        if (!$uriParams) {
             $uriParams = $this->getTestingRequestParams($route);
         }
         $testingUri = $route['path'];
         foreach ($uriParams as $key => $value) {
-            $testingUri = str_replace('{' . $key . '}', (string) $value, $testingUri);
+            $testingUri = str_replace('{'.$key.'}', (string) $value, $testingUri);
         }
 
         return $testingUri;
@@ -65,6 +62,7 @@ trait RouterTestTrait
                     break;
             }
         }
+
         return $uriParams;
     }
 }

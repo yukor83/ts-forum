@@ -1,11 +1,10 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Tests\Infrastructure\Routing\NklRouting;
 
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Terricon\Forum\Infrastructure\NklRouting\Router;
 use Terricon\Forum\Infrastructure\Routing\RouterInterface;
 use Terricon\Forum\Tests\Infrastructure\Routing\RouterTestTrait;
@@ -18,7 +17,7 @@ final class NklRouterTest extends TestCase
 
     public function __construct(string $name)
     {
-        $this->config = require __DIR__ . '/../../../test_routes.php';
+        $this->config = require __DIR__.'/../../../test_routes.php';
         parent::__construct($name);
     }
 
@@ -33,7 +32,6 @@ final class NklRouterTest extends TestCase
     {
         return $this->router;
     }
-
 
     public function getRouterConfig(): array
     {
