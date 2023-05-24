@@ -27,6 +27,11 @@ class Route implements RouteInterface
 
     public function getParameters(): array
     {
+        '/topic/show/{UUID}/page/{N}';
+        return [
+            'UUID' => '123',
+            'N' => '1',
+        ];
         return $this->parameters;
     }
 }

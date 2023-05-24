@@ -6,6 +6,7 @@ use Terricon\Forum\Application\Controller\ForumController;
 
 return [
     [
+        'name' => 'app.index',
         'method' => 'GET',
         'path' => '/',
         'handler' => [
@@ -14,6 +15,7 @@ return [
         ]
     ],
     [
+        'name' => 'app.topic.show',
         'method' => 'GET',
         'path' => '/topic/show/{UUID}',
         'handler' => [
@@ -22,6 +24,7 @@ return [
         ]
     ],
     [
+        'name' => 'app.topic.show.page',
         'method' => 'GET',
         'path' => '/topic/show/{UUID}/page/{N}',
         'handler' => [
@@ -30,6 +33,7 @@ return [
         ]
     ],
     [
+        'name' => 'app.topic.create.form',
         'method' => 'GET',
         'path' => '/topic/create',
         'handler' => [
@@ -38,6 +42,7 @@ return [
         ]
     ],
     [
+        'name' => 'app.topic.create.process',
         'method' => 'POST',
         'path' => '/topic/create',
         'handler' => [
@@ -46,6 +51,7 @@ return [
         ]
     ],
     [
+        'name' => 'app.topic-message.create.process',
         'method' => 'POST',
         'path' => '/topic-message/create',
         'handler' => [
