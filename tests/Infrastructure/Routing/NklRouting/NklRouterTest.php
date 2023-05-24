@@ -13,8 +13,7 @@ final class NklRouterTest extends TestCase
 {
     use RouterTestTrait;
     private RouterInterface $router;
-    private array $config = [];
-
+    private array $config;
     public function __construct(string $name)
     {
         $this->config = require __DIR__.'/../../../test_routes.php';
