@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aca43e32b3912523eabde0547c26ea91",
+    "content-hash": "f7045b7d073a027f61934db093eec4eb",
     "packages": [
         {
             "name": "brick/math",
@@ -4166,7 +4166,8 @@
         "ramsey/uuid": 20,
         "symfony/var-dumper": 20,
         "friendsofphp/php-cs-fixer": 20,
-        "fzaninotto/faker": 20
+        "fzaninotto/faker": 20,
+        "phpunit/phpunit": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
