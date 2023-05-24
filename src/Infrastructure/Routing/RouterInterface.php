@@ -1,42 +1,42 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace Terricon\Forum\Infrastructure\Routing;
+
+use Exception;
+use Terricon\Forum\Infrastructure\Routing\Exception\MethodNotAllowedException;
+use Terricon\Forum\Infrastructure\Routing\Exception\RouteNotFoundException;
 
 interface RouterInterface
 {
     /**
      * @param array $routes - массив маршрутов (@see config/routes.php)
-     * @param string $requestUri - как правило $_SERVER['REQUEST_URI']
-     * @param string $requestMethod - как правило $_SERVER['REQUEST_METHOD']
      */
     public function __construct(
         array $routes,
-        string $requestUri,
-        string $requestMethod
     );
 
     /**
-     * Запускает метод определенного по маршруту контроллера
+     * Возвращает объект маршрута.
      *
-     * @return void
+     * @param string $uri    - URI запроса
+     * @param string $method - метод запроса (GET, POST, PUT, DELETE)
+     *
+     * @throws RouteNotFoundException
+     * @throws MethodNotAllowedException
      */
-    public function run(): void;
+    public function getRoute(string $uri, string $method): RouteInterface;
 
     /**
-     * Возвращает объект маршрута
+     * Генерирует URI по имени маршрута и массиву параметров.
      *
-     * @return RouteInterface
-     */
-    public function getRoute(): RouteInterface;
-
-    /**
-     * Генерирует URI по имени маршрута и массиву параметров
+     * @param string $name       - имя маршрута
+     * @param array  $parameters - массив параметров
      *
-     * @param string $name - имя маршрута
-     * @param array $parameters - массив параметров
      * @return string - сгенерированный URI (например "/users/show/241")
+     *
+     * @throws Exception
      */
     public function generateUri(string $name, array $parameters = []): string;
 }

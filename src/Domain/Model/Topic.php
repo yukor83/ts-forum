@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Domain\Model;
 
@@ -8,6 +8,7 @@ class Topic implements IdentityInterface
 {
     use UuidIdentityTrait;
     private array $messages;
+
     public function __construct(
         private string $name,
         string $message,
