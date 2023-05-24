@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\NklRouting;
 
@@ -11,7 +11,7 @@ class Route implements RouteInterface
     public function __construct(
         private readonly string $controller,
         private readonly string $action,
-        private readonly array  $parameters
+        private readonly array $parameters
     ) {
     }
 
@@ -27,6 +27,11 @@ class Route implements RouteInterface
 
     public function getParameters(): array
     {
+        return [
+            'UUID' => '123',
+            'N' => '1',
+        ];
+
         return $this->parameters;
     }
 }

@@ -1,70 +1,70 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\NklRouting;
 
+use Terricon\Forum\Infrastructure\Routing\Exception\MethodNotAllowedException;
+use Terricon\Forum\Infrastructure\Routing\Exception\RouteNotFoundException;
 use Terricon\Forum\Infrastructure\Routing\RouterInterface;
 
 class Router implements RouterInterface
 {
     public function __construct(
         private readonly array $routes,
-        private readonly string $requestUri,
-        private readonly string $requestMethod
     ) {
     }
 
-    public function getRoute(): Route
+    public function getRoute(string $uri, string $method): Route
     {
+        $foundRoute = null;
         foreach ($this->routes as $route) {
-            $uriParams = $this->getUriParams($route['path']);
-            $requestParts = explode('/', $this->requestUri);
+            $uriParams = $this->getUriParams($route['path'], $uri);
+            $requestParts = explode('/', $uri);
             $patternParts = explode('/', $route['path']);
-            foreach ($requestParts as $key => $requestPart){
-                foreach ($uriParams as $param){
-                    if($requestPart === $param){
-                        unset($requestParts[$key]);
+            foreach ($requestParts as $requestPart) {
+                if ('' === $requestPart) {
+                    continue;
+                }
+                if (!in_array($requestPart, $patternParts)) {
+                    if (0 === count($uriParams)) {
+                        continue 2;
+                    }
+                    foreach ($uriParams as $key => $uriParam) {
+                        if (!in_array($key, $patternParts)) {
+                            continue 3;
+                        }
                     }
                 }
-            }
-            dump($requestParts);
-            dump($patternParts);
-            print '<br>================================<br>';
-            if (
-                $route['path'] === $this->requestUri
-                && $route['method'] === $this->requestMethod
-            ) {
-
-
-                return new Route(
-                    controller: $route['handler']['controller'],
-                    action: $route['handler']['action'],
-                    parameters: $route['parameters']
-                );
+                $foundRoute = $route;
             }
         }
+        if (!$foundRoute) {
+            throw new RouteNotFoundException($uri);
+        }
 
-        throw new \Exception('Route not found');
+        if (!in_array($method, $foundRoute['method'])) {
+            dump($foundRoute);
+            throw new MethodNotAllowedException($uri, $method, $foundRoute['method']);
+        }
+
+        return new Route(
+            $foundRoute['handler']['controller'],
+            $foundRoute['handler']['action'],
+            $this->getUriParams($foundRoute['path'], $uri)
+        );
     }
 
-    public function run(): void
-    {
-        $route = $this->getRoute();
-        $controller = new ($route->getController());
-        $action = $route->getAction();
-        $parameters = $route->getParameters();
-        $controller->$action(...$parameters);
-    }
-
-    private function getUriParams(string $path): array
+    private function getUriParams(string $path, string $uri): array
     {
         $uriParams = [];
         $pathParts = explode('/', $path);
-        $requestUriParts = explode('/', $this->requestUri);
+        $requestUriParts = explode('/', $uri);
         foreach ($pathParts as $key => $pathPart) {
             if (preg_match('/^{(.*)}$/', $pathPart)) {
-                $uriParams[] = $requestUriParts[$key];
+                if (isset($requestUriParts[$key])) {
+                    $uriParams[$pathPart] = $requestUriParts[$key];
+                }
             }
         }
 
@@ -73,8 +73,17 @@ class Router implements RouterInterface
 
     public function generateUri(string $name, array $parameters = []): string
     {
-        throw new \Exception('Not implemented');
-        // TODO: Implement generateUri() method.
-    }
+        foreach ($this->routes as $route) {
+            if ($route['name'] === $name) {
+                $uri = $route['path'];
+                foreach ($parameters as $key => $value) {
+                    $uri = str_replace('{'.$key.'}', (string) $value, $uri);
+                }
 
+                return $uri;
+            }
+        }
+
+        throw new \Exception('Route not found');
+    }
 }
