@@ -23,7 +23,7 @@ return [
     ],
     [
         'method' => 'GET',
-        'path' => '/topic/show/{UUID}/page/{ID}',
+        'path' => '/topic/show/{UUID}/page/{N}',
         'handler' => [
             'controller' => ForumController::class,
             'action' => 'showTopic'

@@ -47,10 +47,10 @@ class Router implements RouterInterface
                                     array_push($requestUriParam, '{UUID}='.$requestParts[$i]);
                                 };
                                 break;
-                            case '{ID}' : 
+                            case '{N}' : 
                                 if (preg_match('/[[:digit:]]/', $requestParts[$i])) {
                                     $matchCount++;
-                                    array_push($requestUriParam, '{ID}='.$requestParts[$i]);
+                                    array_push($requestUriParam, '{N}='.$requestParts[$i]);
                                 };
                                 break;
                         }  
