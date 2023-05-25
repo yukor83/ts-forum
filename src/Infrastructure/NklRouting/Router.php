@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Terricon\Forum\Infrastructure\NklRouting;
 
 use Terricon\Forum\Application\Controller\ForumController;
-use Terricon\Forum\Infrastructure\Routing\Exception\MethodNotAllowedException;
-use Terricon\Forum\Infrastructure\Routing\Exception\RouteNotFoundException;
 use Terricon\Forum\Infrastructure\Routing\RouterInterface;
 
 class Router implements RouterInterface
