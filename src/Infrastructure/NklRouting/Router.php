@@ -21,22 +21,14 @@ class Router implements RouterInterface
         foreach ($this->routes as $route) {
             $uriParams = $this->getUriParams($route['path'], $uri);
             $requestParts = explode('/', $uri);
+            if (!empty($uriParams)) {
+                foreach ($uriParams as $param => $value) {
+                    $requestParts[array_search($value, $requestParts)] = $param;
+                }
+            }
             $patternParts = explode('/', $route['path']);
-            foreach ($requestParts as $requestPart) {
-                if ('' === $requestPart) {
-                    continue;
-                }
-                if (!in_array($requestPart, $patternParts)) {
-                    if (0 === count($uriParams)) {
-                        continue 2;
-                    }
-                    foreach ($uriParams as $key => $uriParam) {
-                        if (!in_array($key, $patternParts)) {
-                            continue 3;
-                        }
-                    }
-                }
-                $foundRoute = $route;
+            if ($patternParts == $requestParts) {
+                $foundRoute = $route;;
             }
         }
 

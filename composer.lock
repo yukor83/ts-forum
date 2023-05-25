@@ -1008,12 +1008,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "a6d8d16e3d35bd89b0fbbb59bfafa6566d1fec99"
+                "reference": "08ec0679e5c61c2a7d2be3c0ca5c63c5c5c4ba3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/a6d8d16e3d35bd89b0fbbb59bfafa6566d1fec99",
-                "reference": "a6d8d16e3d35bd89b0fbbb59bfafa6566d1fec99",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/08ec0679e5c61c2a7d2be3c0ca5c63c5c5c4ba3e",
+                "reference": "08ec0679e5c61c2a7d2be3c0ca5c63c5c5c4ba3e",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1097,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-24T17:14:33+00:00"
+            "time": "2023-05-25T10:29:33+00:00"
         },
         {
             "name": "fzaninotto/faker",

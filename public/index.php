@@ -8,9 +8,7 @@ require_once '../vendor/autoload.php';
 
 $routes = require_once '../config/routes.php';
 $router = new Router($routes);
-echo $_SERVER['REQUEST_METHOD'];
-echo $_SERVER['REQUEST_URI'];
 $uri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 $router->getRoute($uri, $method);
-dump($router);
+dump($router->getRoute($uri, $method));
