@@ -39,7 +39,13 @@ class Router implements RouterInterface
                 $foundRoute = $route;
             }
         }
+
+        if ($uri === '/') {
+            $foundRoute = $this->routes[0];
+        }
+
         if (!$foundRoute) {
+            echo 'нет маршрута';
             throw new RouteNotFoundException($uri);
         }
 
