@@ -5,11 +5,14 @@ declare(strict_types=1);
 use Terricon\Forum\Application\Controller\DefaultController;
 use Terricon\Forum\Application\Controller\ForumController;
 
+$uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';
+
 return [
     [
         'name' => 'app.index',
-        'method' => 'GET',
+        'method' => ['GET'],
         'path' => '/',
+        'parameters' => [],
         'handler' => [
             'controller' => DefaultController::class,
             'action' => 'index',
@@ -17,8 +20,11 @@ return [
     ],
     [
         'name' => 'app.topic.show',
-        'method' => 'GET',
+        'method' => ['GET'],
         'path' => '/topic/show/{UUID}',
+        'parameters' => [
+            'UUID' => $uuidRegExp, // UUID v4
+        ],
         'handler' => [
             'controller' => ForumController::class,
             'action' => 'showTopic',
@@ -26,26 +32,22 @@ return [
     ],
     [
         'name' => 'app.topic.show.page',
-        'method' => 'GET',
+        'method' => ['GET'],
         'path' => '/topic/show/{UUID}/page/{N}',
+        'parameters' => [
+            'UUID' => $uuidRegExp, // UUID v4
+            'N' => '\d+',
+        ],
         'handler' => [
             'controller' => ForumController::class,
             'action' => 'showTopic',
         ],
     ],
     [
-        'name' => 'app.topic.create.form',
-        'method' => 'GET',
+        'name' => 'app.topic.create',
+        'method' => ['GET', 'POST'],
         'path' => '/topic/create',
-        'handler' => [
-            'controller' => ForumController::class,
-            'action' => 'createTopic',
-        ],
-    ],
-    [
-        'name' => 'app.topic.create.process',
-        'method' => 'POST',
-        'path' => '/topic/create',
+        'parameters' => [],
         'handler' => [
             'controller' => ForumController::class,
             'action' => 'createTopic',
@@ -53,8 +55,9 @@ return [
     ],
     [
         'name' => 'app.topic-message.create.process',
-        'method' => 'POST',
+        'method' => ['POST'],
         'path' => '/topic-message/create',
+        'parameters' => [],
         'handler' => [
             'controller' => ForumController::class,
             'action' => 'createTopicMessage',
