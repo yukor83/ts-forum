@@ -25,6 +25,8 @@ interface RouterInterface
      *
      * @throws RouteNotFoundException
      * @throws MethodNotAllowedException
+     *
+     * @return RouteInterface - объект маршрута
      */
     public function getRoute(string $uri, string $method): RouteInterface;
 

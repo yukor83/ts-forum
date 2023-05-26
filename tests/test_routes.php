@@ -7,7 +7,6 @@ use Terricon\Forum\Tests\MockController;
 $uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';
 
 return [
-//TODO: оба роутинга валяться на этом маршруте, поэтому пока закомментировали
     [
         'name' => 'app.index',
         'method' => ['GET'],
