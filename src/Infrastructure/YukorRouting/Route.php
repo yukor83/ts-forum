@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\YukorRouting;
 
@@ -11,7 +11,7 @@ class Route implements RouteInterface
     public function __construct(
         private readonly string $controller,
         private readonly string $action,
-        private readonly array  $parameters
+        private readonly array $parameters
     ) {
     }
 
@@ -27,6 +27,6 @@ class Route implements RouteInterface
 
     public function getParameters(): array
     {
-        return $this->parameters;        
+        return $this->parameters;
     }
 }
