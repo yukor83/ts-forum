@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -7,16 +8,15 @@ return [
         'path' => '/',
         'handler' => [
             'controller' => DefaultController::class,
-            'action' => 'index'
-        ]
+            'action' => 'index',
+        ],
     ],
     [
         'method' => 'GET',
         'path' => '/topic/',
         'handler' => [
             'controller' => DefaultController::class,
-            'action' => 'index'
-        ]
-    ]
-
+            'action' => 'index',
+        ],
+    ],
 ];

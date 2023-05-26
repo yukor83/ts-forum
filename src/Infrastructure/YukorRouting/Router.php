@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\YukorRouting;
 
@@ -10,50 +10,47 @@ class Router implements RouterInterface
 {
     public function __construct(
         private readonly array $routes,
-        private readonly string $requestUri,
-        private readonly string $requestMethod
     ) {
     }
 
-    public function run(): void
+    public function run(string $uri, string $method): void
     {
-        $route = $this->getRoute();
+        $route = $this->getRoute($uri, $method);
         $controller = new ($route->getController());
         $action = $route->getAction();
         $parameters = $route->getParameters();
         $controller->$action(...$parameters);
     }
 
-    public function getRoute(): Route
+    public function getRoute(string $uri, string $method): Route
     {
-        $requestParts = explode('/', $this->requestUri);
+        $requestParts = explode('/', $uri);
 
         foreach ($this->routes as $route) {
             $requestUriParam = [];
-            $matchCount=0;
+            $matchCount = 0;
             $patternParts = explode('/', $route['path']);
 
-            if ($route['method'] === $this->requestMethod) {
+            if ($route['method'] === $method) {
                 if (count($patternParts) == count($requestParts)) {
-                    for ($i = 0; $i < count($patternParts); $i++)
-                    {
+                    for ($i = 0; $i < count($patternParts); ++$i) {
                         switch ($patternParts[$i]) {
-                            case $requestParts[$i] :
+                            case $requestParts[$i]:
                                 $matchCount++;
                                 break;
-                            case '{UUID}' :
+                            case '{UUID}':
                                 if (preg_match('/[a-zA-Z0-9]/', $requestParts[$i])) {
-                                    $matchCount++;
+                                    ++$matchCount;
                                     array_push($requestUriParam, '{UUID}='.$requestParts[$i]);
-                                };
+                                }
                                 break;
-                            case '{N}' : 
+                            case '{N}':
                                 if (preg_match('/[[:digit:]]/', $requestParts[$i])) {
-                                    $matchCount++;
+                                    ++$matchCount;
                                     array_push($requestUriParam, '{N}='.$requestParts[$i]);
-                                };
+                                }
                                 break;
-                        }  
+                        }
                     }
                     break;
                 }
@@ -67,10 +64,9 @@ class Router implements RouterInterface
                 action: $route['handler']['action'],
                 parameters: $requestUriParam
             );
-            
         } else {
             throw new \Exception('Route not found');
-        }        
+        }
     }
 
     public function generateUri(string $name, array $parameters = []): string
@@ -78,5 +74,4 @@ class Router implements RouterInterface
         throw new \Exception('Not implemented');
         // TODO: Implement generateUri() method.
     }
-
 }

@@ -7,16 +7,16 @@ use Terricon\Forum\Tests\MockController;
 $uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';
 
 return [
-//    [
-//        'name' => 'app.index',
-//        'method' => ['GET'],
-//        'path' => '/',
-//        'parameters' => [],
-//        'handler' => [
-//            'controller' => MockController::class,
-//            'action' => 'index'
-//        ]
-//    ],
+    [
+        'name' => 'app.index',
+        'method' => ['GET'],
+        'path' => '/',
+        'parameters' => [],
+        'handler' => [
+            'controller' => MockController::class,
+            'action' => 'index'
+        ]
+    ],
     [
         'name' => 'app.topic.show',
         'method' => ['GET'],
