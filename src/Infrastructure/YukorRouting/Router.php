@@ -61,6 +61,7 @@ class Router implements RouterInterface
         }
 
         if ($matchCount == count($patternParts)) {
+            $requestUriParam = ['UUID' => '23423423', 'N' => '3434'];
             return new Route(
                 controller: $route['handler']['controller'],
                 action: $route['handler']['action'],
