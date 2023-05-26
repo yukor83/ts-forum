@@ -13,52 +13,44 @@ class Router implements RouterInterface
     ) {
     }
 
-    public function run(string $uri, string $method): void
-    {
-        $route = $this->getRoute($uri, $method);
-        $controller = new ($route->getController());
-        $action = $route->getAction();
-        $parameters = $route->getParameters();
-        $controller->$action(...$parameters);
-    }
-
     public function getRoute(string $uri, string $method): Route
     {
+        /**
+         * /topic/show/0182f46f-552f-4fb3-864c-691a3edabb28*/
+
         $requestParts = explode('/', $uri);
+
+        dump($requestParts);
 
         foreach ($this->routes as $route) {
             $requestUriParam = [];
             $matchCount = 0;
             $patternParts = explode('/', $route['path']);
 
-            if ($route['method'] === $method) {
+            if (in_array($method, $route['method'], true)) {
+
                 if (count($patternParts) == count($requestParts)) {
+
                     for ($i = 0; $i < count($patternParts); ++$i) {
-                        switch ($patternParts[$i]) {
-                            case $requestParts[$i]:
-                                $matchCount++;
-                                break;
-                            case '{UUID}':
-                                if (preg_match('/[a-zA-Z0-9]/', $requestParts[$i])) {
-                                    ++$matchCount;
-                                    array_push($requestUriParam, '{UUID}='.$requestParts[$i]);
+                        if ($patternParts[$i] == $requestParts[$i]) {
+                            $matchCount++;
+                        } else {
+                            foreach ($route['parameters'] as $parameter => $value) {
+                                if (preg_match($value, $requestParts[$i])) {
+                                    $matchCount++;
+                                    array_push($requestUriParam, $parameter.'='.$requestParts[$i]);
+                                    break;
                                 }
-                                break;
-                            case '{N}':
-                                if (preg_match('/[[:digit:]]/', $requestParts[$i])) {
-                                    ++$matchCount;
-                                    array_push($requestUriParam, '{N}='.$requestParts[$i]);
-                                }
-                                break;
+                            }
                         }
                     }
+                    dump($route);
                     break;
                 }
             }
         }
-
         if ($matchCount == count($patternParts)) {
-            $requestUriParam = ['UUID' => '23423423', 'N' => '3434'];
+
             return new Route(
                 controller: $route['handler']['controller'],
                 action: $route['handler']['action'],
@@ -74,4 +66,5 @@ class Router implements RouterInterface
         throw new \Exception('Not implemented');
         // TODO: Implement generateUri() method.
     }
+
 }
