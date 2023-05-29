@@ -4,11 +4,25 @@ declare(strict_types=1);
 
 namespace Terricon\Forum\Application\Controller;
 
+use Terricon\Forum\Application\TemplatingEngineInterface;
+use Terricon\Forum\Domain\Model\TopicRepositoryInterface;
+
 class ForumController
 {
-    public function showTopic(string $topicId, $page = 1): void
+    public function __construct(
+        private readonly TopicRepositoryInterface $topicRepository,
+        private readonly TemplatingEngineInterface $templatingEngine
+    ) {
+    }
+
+    public function showTopic(string $UUID, int|string $PageNumber = 1): void
     {
-        echo __METHOD__.' '.$topicId.' '.$page;
+        $this->topicRepository->getById($UUID);
+
+        $this->templatingEngine->render('show_topic.html', [
+            'UUID' => $UUID,
+            'PageNumber' => $PageNumber,
+        ]);
     }
 
     public function createTopic(): void
