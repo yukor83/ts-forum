@@ -14,8 +14,8 @@ return [
         'parameters' => [],
         'handler' => [
             'controller' => MockController::class,
-            'action' => 'index'
-        ]
+            'action' => 'index',
+        ],
     ],
     [
         'name' => 'app.topic.show',

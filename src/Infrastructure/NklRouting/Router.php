@@ -20,47 +20,47 @@ class Router implements RouterInterface
     {
         return new Route(
             ForumController::class,
-            'showTopic',
+            'showTopicPage',
             [
                 'UUID' => '6a3f740b-8487-44aa-b30d-5ed7fbf01a62',
                 'PageNumber' => '1',
             ]
         );
-//        $foundRoute = null;
-//        foreach ($this->routes as $route) {
-//            $uriParams = $this->getUriParams($route['path'], $uri);
-//            $requestParts = explode('/', $uri);
-//            $patternParts = explode('/', $route['path']);
-//            foreach ($requestParts as $requestPart) {
-//                if ('' === $requestPart) {
-//                    continue;
-//                }
-//                if (!in_array($requestPart, $patternParts)) {
-//                    if (0 === count($uriParams)) {
-//                        continue 2;
-//                    }
-//                    foreach ($uriParams as $key => $uriParam) {
-//                        if (!in_array($key, $patternParts)) {
-//                            continue 3;
-//                        }
-//                    }
-//                }
-//                $foundRoute = $route;
-//            }
-//        }
-//        if (!$foundRoute) {
-//            throw new RouteNotFoundException($uri);
-//        }
-//
-//        if (!in_array($method, $foundRoute['method'])) {
-//            throw new MethodNotAllowedException($uri, $method, $foundRoute['method']);
-//        }
-//
-//        return new Route(
-//            $foundRoute['handler']['controller'],
-//            $foundRoute['handler']['action'],
-//            $this->getUriParams($foundRoute['path'], $uri)
-//        );
+        //        $foundRoute = null;
+        //        foreach ($this->routes as $route) {
+        //            $uriParams = $this->getUriParams($route['path'], $uri);
+        //            $requestParts = explode('/', $uri);
+        //            $patternParts = explode('/', $route['path']);
+        //            foreach ($requestParts as $requestPart) {
+        //                if ('' === $requestPart) {
+        //                    continue;
+        //                }
+        //                if (!in_array($requestPart, $patternParts)) {
+        //                    if (0 === count($uriParams)) {
+        //                        continue 2;
+        //                    }
+        //                    foreach ($uriParams as $key => $uriParam) {
+        //                        if (!in_array($key, $patternParts)) {
+        //                            continue 3;
+        //                        }
+        //                    }
+        //                }
+        //                $foundRoute = $route;
+        //            }
+        //        }
+        //        if (!$foundRoute) {
+        //            throw new RouteNotFoundException($uri);
+        //        }
+        //
+        //        if (!in_array($method, $foundRoute['method'])) {
+        //            throw new MethodNotAllowedException($uri, $method, $foundRoute['method']);
+        //        }
+        //
+        //        return new Route(
+        //            $foundRoute['handler']['controller'],
+        //            $foundRoute['handler']['action'],
+        //            $this->getUriParams($foundRoute['path'], $uri)
+        //        );
     }
 
     private function getUriParams(string $path, string $uri): array

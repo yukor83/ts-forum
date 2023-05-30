@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\Templating;
 
@@ -9,7 +9,7 @@ use Terricon\Forum\Application\TemplatingEngineInterface;
 class TemplatingEngine implements TemplatingEngineInterface
 {
     public function __construct(
-        private readonly string $templateDirectory = __DIR__ . '/../Resources/templates/'
+        private readonly string $templateDirectory = __DIR__.'/../Resources/templates/'
     ) {
     }
 

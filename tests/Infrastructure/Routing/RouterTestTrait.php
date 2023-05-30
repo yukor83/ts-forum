@@ -36,7 +36,7 @@ trait RouterTestTrait
         }
     }
 
-    private function getTestingRequestUri(array $route, ?array $uriParams = null): string
+    private function getTestingRequestUri(array $route, array $uriParams = null): string
     {
         if (!$uriParams) {
             $uriParams = $this->getTestingRequestParams($route);

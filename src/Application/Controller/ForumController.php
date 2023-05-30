@@ -15,10 +15,18 @@ class ForumController
     ) {
     }
 
-    public function showTopic(string $UUID, int|string $PageNumber = 1): void
+    public function showTopic(string $UUID): void
     {
         $this->topicRepository->getById($UUID);
 
+        $this->templatingEngine->render('show_topic.html', [
+            'UUID' => $UUID,
+        ]);
+    }
+
+    public function showTopicPage(string $UUID, int|string $PageNumber = 1): void
+    {
+        $this->topicRepository->getById($UUID);
         $this->templatingEngine->render('show_topic.html', [
             'UUID' => $UUID,
             'PageNumber' => $PageNumber,
