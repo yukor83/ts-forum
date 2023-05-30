@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Terricon\Forum\Application\Controller\UserReputation;
 
-const $MIN_SCORE = 0;
-const $MAX_SCORE = 100;
+const MIN_SCORE = 0;
+const MAX_SCORE = 100;
 
 return [
     [

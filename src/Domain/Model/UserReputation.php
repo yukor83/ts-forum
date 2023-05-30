@@ -6,17 +6,19 @@ namespace Terricon\Forum\Domain\Model;
 
 class UserReputation
 {
-    public function saveScore(User $userId, int $score): void
+    /**
+    * Сохраняет рейтинг пользователя в БД
+    */
+    public function saveScore(int $userId, int $score): void
     {
-        /**
-         * Сохраняет рейтинг пользователя в БД
-         */
+
     }
 
-    public function loadScore(User $userId) : int
+    /**
+    * Извлекает рейтинг пользователя из БД
+    */
+    public function loadScore(int $userId) : int
     {
-        /**
-         * Извлекает рейтинг пользователя из БД
-         */
+        return 50;    
     }
 }

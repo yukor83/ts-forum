@@ -4,24 +4,33 @@ declare(strict_types=1);
 
 namespace Terricon\Forum\Application\Controller;
 
-class UserReputationController
+use Terricon\Forum\Domain\model\UserReputation;
+
+class UserReputationController extends UserReputation
 {
     public function __construct(
-       public User $userId
+       public int $userId
     ) {
     }
 
-    public function changeScore(string $action): void
+    public function changeScore(int $userId, string $action, array $ReputationScores): void
     {
-        /**
-         * Изменяет рейтинг пользователя в зависимости от того какое действие произошло. Изменение происходит согласно конфига reputation_score.php
-         */
+        $userScore = $this->getScore($userId);
+        
+        foreach($ReputationScores as $reputationScore)
+        {
+            if ($reputationScore['action'] == $action) {
+                if ((($userScore + $reputationScore['score']) >= MIN_SCORE) & (($userScore + $reputationScore['score']) <= MAX_SCORE)) {
+                    $userScore += $reputationScore['score'];
+                    $this->saveScore($userId, $userScore);
+                    dump($userScore);
+                }
+            }
+        }
     }
 
-    public function getScore(User $userId) : int
+    public function getScore(int $userId) : int
     {
-        /**
-         * Возвращает рейтинг конкретного пользователя
-         */
+        return $this->loadScore($userId);
     }
 }
