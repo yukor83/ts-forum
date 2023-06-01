@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "885287c87d0c28016b265bf498d4b0f9",
+    "content-hash": "106df296eca5aecc41070ceffe064048",
     "packages": [
         {
             "name": "brick/math",
@@ -1279,12 +1279,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/manifest.git",
-                "reference": "d62bb058f7cabaac181afbb561f6154f3984a15f"
+                "reference": "67729272c564ab9f953c81f48db44e8b1cb1e1c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/manifest/zipball/d62bb058f7cabaac181afbb561f6154f3984a15f",
-                "reference": "d62bb058f7cabaac181afbb561f6154f3984a15f",
+                "url": "https://api.github.com/repos/phar-io/manifest/zipball/67729272c564ab9f953c81f48db44e8b1cb1e1c3",
+                "reference": "67729272c564ab9f953c81f48db44e8b1cb1e1c3",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1339,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-01T12:14:58+00:00"
+            "time": "2023-06-01T14:19:47+00:00"
         },
         {
             "name": "phar-io/version",
@@ -1726,12 +1726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5e66c111b64a7ac7fe0acb17ae78b1111d3070c5"
+                "reference": "0d1ef98def7b9921bcde43dfe7233fe9cca22a93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5e66c111b64a7ac7fe0acb17ae78b1111d3070c5",
-                "reference": "5e66c111b64a7ac7fe0acb17ae78b1111d3070c5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0d1ef98def7b9921bcde43dfe7233fe9cca22a93",
+                "reference": "0d1ef98def7b9921bcde43dfe7233fe9cca22a93",
                 "shasum": ""
             },
             "require": {
@@ -1820,7 +1820,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-01T06:03:31+00:00"
+            "time": "2023-06-01T12:59:53+00:00"
         },
         {
             "name": "psr/cache",
@@ -4169,7 +4169,8 @@
         "php": "8.2.*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ext-mbstring": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
