@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\Persistence\InMemory;
 
@@ -12,7 +12,6 @@ use Terricon\Forum\Domain\Model\User;
 
 class InMemoryTopicRepository implements TopicRepositoryInterface
 {
-
     public function getById(string $UUID): Topic
     {
         $faker = Factory::create('ru_RU');
