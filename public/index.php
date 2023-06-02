@@ -14,4 +14,3 @@ $route = $router->getRoute($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 $serviceContainer = new ServiceContainer($services);
 $controller = $serviceContainer->getInstanceOf($route->getController());
 $controller->{$route->getAction()}(...$route->getParameters());
-

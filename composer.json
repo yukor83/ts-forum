@@ -3,10 +3,11 @@
     "description": "Simple forum engine on php",
     "type": "project",
     "require": {
-        "php": ">=8.1",
+        "php": "8.2.*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-dom": "*",
+        "ext-mbstring": "*",
         "vlucas/phpdotenv": "^5.5@dev",
         "ramsey/uuid": "^5.x-dev"
     },
