@@ -29,7 +29,7 @@ class Router implements RouterInterface
             }
             $patternParts = explode('/', $route['path']);
             if ($patternParts == $requestParts) {
-                $foundRoute = $route;;
+                $foundRoute = $route;
             }
         }
 
