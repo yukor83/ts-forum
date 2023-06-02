@@ -14,7 +14,8 @@ class User implements UserInterface
     ) {
     }
 
-    public function getPermissions(): array {
+    public function getPermissions(): array
+    {
         if (array_key_exists($this->role, $this->permissions)) {
             return $this->permissions[$this->role];
         }
