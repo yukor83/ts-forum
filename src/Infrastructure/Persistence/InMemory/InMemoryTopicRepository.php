@@ -12,9 +12,9 @@ use Terricon\Forum\Domain\Model\User;
 
 class InMemoryTopicRepository implements TopicRepositoryInterface
 {
+    private readonly array $topics;
 
-    public function getById(string $UUID): Topic
-    {
+    public function __construct() {
         $faker = Factory::create('ru_RU');
 
         $topicStarter = new User(
@@ -48,11 +48,16 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
             topic: $topic
         ));
 
-        return $topic;
+        $this->topics[$topic->getId()] = $topic;
     }
 
-    public function persist(Topic $topic): array
+    public function getById(string $UUID): Topic
     {
-        // TODO: Implement persist() method.
+        return $this->topics[$UUID];
+    }
+
+    public function persist(Topic $topic): void
+    {
+        $this->topics[$topic->getId()] = $topic;
     }
 }

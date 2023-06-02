@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Terricon\Forum\Infrastructure\Persistence\PostgreSql;
+namespace Terricon\Forum\Infrastructure\Persistence\MySql;
 
 use Terricon\Forum\Domain\Model\Topic;
 use Terricon\Forum\Domain\Model\TopicRepositoryInterface;
@@ -19,7 +19,7 @@ final class TopicRepository implements TopicRepositoryInterface
         // TODO: Implement getById() method.
     }
 
-    public function persist(Topic $topic): array
+    public function persist(Topic $topic): void
     {
         // TODO: Implement persist() method.
     }
