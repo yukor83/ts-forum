@@ -15,6 +15,11 @@ class ForumController
     ) {
     }
 
+    public function index(): void
+    {
+        $this->templatingEngine->render('index.html');
+    }
+
     public function showTopic(string $UUID, int|string $PageNumber = 1): void
     {
         $this->topicRepository->getById($UUID);
