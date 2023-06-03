@@ -27,6 +27,10 @@ class Route implements RouteInterface
 
     public function getParameters(): array
     {
-        return $this->parameters;
+        $result = [];
+        foreach ($this->parameters as $key => $value) {
+            $result[str_replace('{', '', str_replace('}', '', $key))] = $value;
+        }
+        return $result;
     }
 }

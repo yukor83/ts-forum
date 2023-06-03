@@ -43,7 +43,6 @@ class Router implements RouterInterface
         }
 
         if (!in_array($method, $foundRoute['method'])) {
-            dump($foundRoute);
             throw new MethodNotAllowedException($uri, $method, $foundRoute['method']);
         }
 
