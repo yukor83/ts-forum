@@ -20,10 +20,10 @@ class Router implements RouterInterface
     {
         return new Route(
             ForumController::class,
-            'showTopicPage',
+            'showTopic',
             [
                 'UUID' => '6a3f740b-8487-44aa-b30d-5ed7fbf01a62',
-                'PageNumber' => '1',
+                'PageNumber' => '1'
             ]
         );
         //        $foundRoute = null;
