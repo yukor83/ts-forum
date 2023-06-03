@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Terricon\Forum\Application\Controller;
 
+use Terricon\Forum\Application\SecurityDictionary;
 use Terricon\Forum\Application\TemplatingEngineInterface;
 use Terricon\Forum\Domain\Model\TopicRepositoryInterface;
+use Terricon\Forum\Infrastructure\Security\Security;
 
 class ForumController
 {
     public function __construct(
         private readonly TopicRepositoryInterface $topicRepository,
-        private readonly TemplatingEngineInterface $templatingEngine
+        private readonly TemplatingEngineInterface $templatingEngine,
+        private readonly Security $security,
     ) {
     }
 
@@ -27,6 +30,8 @@ class ForumController
 
     public function createTopic(): void
     {
+        $user = $this->security->getUser();
+        $this->security->isGranted(SecurityDictionary::PERMISSION_CREATE_TOPIC, $user);
         echo __METHOD__;
     }
 

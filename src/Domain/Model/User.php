@@ -9,8 +9,7 @@ class User implements UserInterface
     public function __construct(
         public readonly string $email,
         public readonly string $nikName,
-        public readonly string $role,
-        private readonly array $permissions
+        public readonly array $permissions,
     ) {
     }
 

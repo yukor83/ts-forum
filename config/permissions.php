@@ -2,23 +2,24 @@
 
 declare(strict_types=1);
 
+use Terricon\Forum\Application\SecurityDictionary;
+
 return [
-    'admin' => [
-        'view_posts',
-        'manage_users',
-        'manage_posts',
-        'manage_settings',
+    SecurityDictionary::ROLE_GUEST->name => [
+        SecurityDictionary::ROLE_GUEST->name,
     ],
-    'editor' => [
-        'view_posts',
-        'manage_posts',
+    'ROLE_USER' => [
+        'ROLE_GUEST',
+        SecurityDictionary::PERMISSION_CREATE_TOPIC->name,
+        'PERMISSION_EDIT_POSTS',
     ],
-    'author' => [
-        'view_posts',
-        'create_posts',
-        'edit_own_posts',
+    'ROLE_MODERATOR' => [
+        'ROLE_USER',
+        'PERMISSION_MANAGE_POSTS',
     ],
-    'guest' => [
-        'view_posts',
+    SecurityDictionary::ROLE_ADMIN->name => [
+        'ROLE_MODERATOR',
+        SecurityDictionary::PERMISSION_MANAGE_USER->name,
+        'PERMISSION_MANAGE_SETTINGS',
     ],
 ];
