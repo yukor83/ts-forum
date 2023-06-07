@@ -11,35 +11,28 @@ use Terricon\Forum\Domain\Model\UserInterface;
 class Security implements SecurityInterface
 {
     public function __construct(
-        private readonly array $permissions
+        private readonly array $roles
     ) {
     }
 
-    public function isGranted(SecurityDictionary $permission, UserInterface $user): bool
+    public function isGranted(SecurityDictionary $permission, UserInterface $user, array $roles): bool
     {
-        dump($this->permissions);
-        dump($permission);
-        dump($user);
-        if(!in_array($permission, $this->permissions)){
-            print 'Прямого разрешения нет!\n';
-            foreach($this->permissions as $perm){
-                if($perm['name'] === $permission){
-                    print 'Нашли разрешение по роли!\n';
-                    return $this->isGranted($perm, $user);
+        $user_roles = $user->getPermissions();
+
+        foreach($user_roles as $role) {
+            if ($roles[$role->name]) {
+                $role_permissions = $roles[$role->name];
+            } else {
+                $role_permissions = $roles;
+            }
+            foreach($role_permissions as $user_permission) {
+                if ($user_permission == $permission->name) {
+                    return true;
+                } elseif (str_starts_with($user_permission, 'ROLE')) {
+                    return $this->isGranted($permission, $user, $this->roles[$user_permission]);
                 }
             }
         }
-//        $permissions = $user->getPermissions();
-//        if(str_starts_with($permission->name, 'ROLE')){
-//            $this->isGranted($permission, $user);
-//        }elseif (str_starts_with($permission->name, 'PERMISSION')) {
-//            $this->isGranted($permission, $user);
-//        }
-//        foreach ($permissions as $perm) {
-//            if ($perm === $permission_name) {
-//                return true;
-//            }
-//        }
-//        return false;
+        return false;
     }
 }

@@ -6,20 +6,20 @@ use Terricon\Forum\Application\SecurityDictionary;
 
 return [
     SecurityDictionary::ROLE_GUEST->name => [
+        'VIEW_POSTS',
+    ],
+    SecurityDictionary::ROLE_USER->name => [
+        'PERMISSION_CREATE_TOPIC',
+        'PERMISSION_EDIT_POSTS',
         SecurityDictionary::ROLE_GUEST->name,
     ],
-    'ROLE_USER' => [
-        'ROLE_GUEST',
-        SecurityDictionary::PERMISSION_CREATE_TOPIC->name,
-        'PERMISSION_EDIT_POSTS',
-    ],
-    'ROLE_MODERATOR' => [
-        'ROLE_USER',
+    SecurityDictionary::ROLE_MODERATOR->name => [
         'PERMISSION_MANAGE_POSTS',
+        SecurityDictionary::ROLE_USER->name,
     ],
     SecurityDictionary::ROLE_ADMIN->name => [
-        'ROLE_MODERATOR',
-        SecurityDictionary::PERMISSION_MANAGE_USER->name,
         'PERMISSION_MANAGE_SETTINGS',
+        'PERMISSION_MANAGE_USER',
+        SecurityDictionary::ROLE_MODERATOR->name,
     ],
 ];

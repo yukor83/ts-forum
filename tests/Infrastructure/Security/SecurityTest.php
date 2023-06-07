@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Tests\Infrastructure\Security;
 
@@ -37,13 +37,13 @@ class SecurityTest extends TestCase
         $this->user = new User(
             email: $this->faker->email,
             nikName: $this->faker->userName,
-            permissions:[SecurityDictionary::ROLE_ADMIN]
+            roles:[SecurityDictionary::ROLE_ADMIN]
         );
         $this->security = new Security($this->permissionsConfig);
     }
 
     public function testIsGranted(): void
     {
-        self::assertTrue($this->security->isGranted(SecurityDictionary::PERMISSION_CREATE_TOPIC, $this->user));
+        self::assertTrue($this->security->isGranted(SecurityDictionary::PERMISSION_CREATE_TOPIC, $this->user, $this->permissionsConfig));
     }
 }
