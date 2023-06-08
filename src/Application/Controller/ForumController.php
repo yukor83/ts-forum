@@ -23,9 +23,20 @@ class ForumController
         ]);
     }
 
-    public function showTopic(string $UUID, int|string $PageNumber = 1): void
+    public function showTopic(string $UUID, int|string $PageNumber = null): void
     {
-        echo __METHOD__;
+        if (!empty($UUID) && !is_null($PageNumber)) {
+            $this->topicRepository->getById($UUID);
+            $this->templatingEngine->render('show_topic.html', [
+                'UUID' => $UUID,
+                'PageNumber' => $PageNumber,
+            ]);
+        } elseif (!empty($UUID) && is_null($PageNumber)) {
+            $this->topicRepository->getById($UUID);
+            $this->templatingEngine->render('show_topic.html', [
+                'UUID' => $UUID,
+            ]);
+        }
     }
 
     public function createTopic(): void
