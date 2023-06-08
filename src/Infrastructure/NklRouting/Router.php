@@ -21,7 +21,8 @@ class Router implements RouterInterface
     {
         return new Route(
             ForumController::class,
-            'index', []
+            'index',
+            []
         );
         //        $foundRoute = null;
         //        foreach ($this->routes as $route) {
