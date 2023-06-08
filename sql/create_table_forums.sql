@@ -1,5 +1,6 @@
-CREATE TABLE Users (
+CREATE TABLE forums (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
   created_at TIMESTAMP NOT NULL
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
