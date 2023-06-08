@@ -1,9 +1,9 @@
-CREATE TABLE Topic (
-  topic_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Topics (
+  id INT PRIMARY KEY AUTO_INCREMENT,
   forum_id INT NOT NULL,
   user_id INT NOT NULL,
-  topic_title VARCHAR(255) NOT NULL,
-  topic_description TEXT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL,
   FOREIGN KEY (forum_id) REFERENCES Forum(forum_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id)
