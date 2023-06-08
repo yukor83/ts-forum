@@ -30,20 +30,22 @@ class SecurityTest extends TestCase
     {
         $this->appointedPermissions = [];
         $allowPermissions = SecurityDictionary::getAll();
-        while (count($this->appointedPermissions) < 3) {
-            $permissionNumber = rand(0, count($allowPermissions));
+        while (count($this->appointedPermissions) < 5) {
+            $permissionNumber = rand(0, count($allowPermissions) - 1);
             $this->appointedPermissions[] = $allowPermissions[$permissionNumber];
         }
         $this->user = new User(
             email: $this->faker->email,
             nikName: $this->faker->userName,
-            roles:[SecurityDictionary::ROLE_ADMIN]
+            roles: $this->appointedPermissions
         );
         $this->security = new Security($this->permissionsConfig);
     }
 
     public function testIsGranted(): void
     {
-        self::assertTrue($this->security->isGranted(SecurityDictionary::PERMISSION_CREATE_TOPIC, $this->user, $this->permissionsConfig));
+        foreach ($this->appointedPermissions as $testPermission){
+            self::assertTrue($this->security->isGranted($testPermission, $this->user));
+        }
     }
 }

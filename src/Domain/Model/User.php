@@ -13,7 +13,6 @@ class User implements UserInterface
     ) {
     }
 
-    // кажется в этом методе просто нужно вернуть $this->permissions ??
     public function getPermissions(): array
     {
         return $this->roles;

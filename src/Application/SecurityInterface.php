@@ -8,5 +8,5 @@ use Terricon\Forum\Domain\Model\UserInterface;
 
 interface SecurityInterface
 {
-    public function isGranted(SecurityDictionary $permission, UserInterface $user, array $roles): bool;
+    public function isGranted(SecurityDictionary $permission, UserInterface $user): bool;
 }

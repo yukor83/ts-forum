@@ -6,7 +6,7 @@ use Terricon\Forum\Application\SecurityDictionary;
 
 return [
     SecurityDictionary::ROLE_GUEST->name => [
-        'VIEW_POSTS',
+        SecurityDictionary::PERMISSION_VIEW_POST->name,
     ],
     SecurityDictionary::ROLE_USER->name => [
         'PERMISSION_CREATE_TOPIC',

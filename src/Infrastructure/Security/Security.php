@@ -10,29 +10,52 @@ use Terricon\Forum\Domain\Model\UserInterface;
 
 class Security implements SecurityInterface
 {
+    private $iteration = 0;
+
     public function __construct(
         private readonly array $roles
     ) {
     }
 
-    public function isGranted(SecurityDictionary $permission, UserInterface $user, array $roles): bool
+    public function isGranted(SecurityDictionary $permission, UserInterface $user): bool
     {
-        $user_roles = $user->getPermissions();
+        $userPermissions = $user->getPermissions();
+        if(in_array($permission, $userPermissions)) {
+            return true;
+        }
 
-        foreach($user_roles as $role) {
-            if ($roles[$role->name]) {
-                $role_permissions = $roles[$role->name];
-            } else {
-                $role_permissions = $roles;
-            }
-            foreach($role_permissions as $user_permission) {
-                if ($user_permission == $permission->name) {
-                    return true;
-                } elseif (str_starts_with($user_permission, 'ROLE')) {
-                    return $this->isGranted($permission, $user, $this->roles[$user_permission]);
+        foreach($userPermissions as $userPermission){
+            if(str_starts_with($userPermission->name, 'ROLE_')){
+                if(isset($this->roles[$userPermission->name])){
+                    return $this->isGrantedIndirectly($permission, $userPermission->name);
                 }
             }
         }
+
+        return false;
+    }
+
+    private function isGrantedIndirectly(SecurityDictionary $permission, string $role): bool
+    {
+        $this->iteration++;
+        if(str_starts_with($permission->name, 'ROLE_')) {
+            throw new \Exception('Permission can not be a role');
+        }
+
+        if(str_starts_with($role, 'PERMISSION_')) {
+            throw new \Exception('Role can not be a permission');
+        }
+
+        if(in_array($permission->name, $this->roles[$role])){
+            return true;
+        }
+
+        foreach($this->roles[$role] as $issetRole){
+            if(str_starts_with($issetRole, 'ROLE_')){
+                return $this->isGrantedIndirectly($permission, $issetRole);
+            }
+        }
+
         return false;
     }
 }
