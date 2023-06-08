@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\NklRouting;
 
+use Terricon\Forum\Application\Controller\DefaultController;
 use Terricon\Forum\Application\Controller\ForumController;
 use Terricon\Forum\Infrastructure\Routing\Exception\MethodNotAllowedException;
 use Terricon\Forum\Infrastructure\Routing\Exception\RouteNotFoundException;
@@ -20,11 +21,7 @@ class Router implements RouterInterface
     {
         return new Route(
             ForumController::class,
-            'showTopic',
-            [
-                'UUID' => '6a3f740b-8487-44aa-b30d-5ed7fbf01a62',
-                'PageNumber' => '1',
-            ]
+            'index', []
         );
         //        $foundRoute = null;
         //        foreach ($this->routes as $route) {
