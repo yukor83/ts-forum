@@ -24,9 +24,9 @@ class Security implements SecurityInterface
             return true;
         }
 
-        foreach($userPermissions as $userPermission){
-            if(str_starts_with($userPermission->name, 'ROLE_')){
-                if(isset($this->roles[$userPermission->name])){
+        foreach($userPermissions as $userPermission) {
+            if(str_starts_with($userPermission->name, 'ROLE_')) {
+                if(isset($this->roles[$userPermission->name])) {
                     return $this->isGrantedIndirectly($permission, $userPermission->name);
                 }
             }
@@ -46,12 +46,12 @@ class Security implements SecurityInterface
             throw new \Exception('Role can not be a permission');
         }
 
-        if(in_array($permission->name, $this->roles[$role])){
+        if(in_array($permission->name, $this->roles[$role])) {
             return true;
         }
 
-        foreach($this->roles[$role] as $issetRole){
-            if(str_starts_with($issetRole, 'ROLE_')){
+        foreach($this->roles[$role] as $issetRole) {
+            if(str_starts_with($issetRole, 'ROLE_')) {
                 return $this->isGrantedIndirectly($permission, $issetRole);
             }
         }

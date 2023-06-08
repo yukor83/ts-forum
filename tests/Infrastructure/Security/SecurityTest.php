@@ -44,7 +44,7 @@ class SecurityTest extends TestCase
 
     public function testIsGranted(): void
     {
-        foreach ($this->appointedPermissions as $testPermission){
+        foreach ($this->appointedPermissions as $testPermission) {
             self::assertTrue($this->security->isGranted($testPermission, $this->user));
         }
     }
