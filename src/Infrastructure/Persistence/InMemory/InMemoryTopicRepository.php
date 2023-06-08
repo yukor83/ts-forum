@@ -54,4 +54,11 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
     {
         // TODO: Implement persist() method.
     }
+
+    public function findLastCreatedTopics(int $limit): array
+    {
+        //TODO Для реализации Жуковым Анатолием
+        // Здесь реализовать запрос, который вернет последние $limit объектов топиков
+        return [];
+    }
 }

@@ -15,6 +15,14 @@ class ForumController
     ) {
     }
 
+    public function index(): void
+    {
+        $lastTopics = $this->topicRepository->findLastCreatedTopics(10);
+        $this->templatingEngine->render('topic_list.html', [
+            'lastTopics' => $lastTopics,
+        ]);
+    }
+
     public function showTopic(string $UUID, int|string $PageNumber = null): void
     {
         if (!empty($UUID) && !is_null($PageNumber)) {

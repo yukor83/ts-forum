@@ -37,4 +37,14 @@ final class NklRouterTest extends TestCase
     {
         return $this->config;
     }
+
+    public function testGetRoute(): void
+    {
+        self::markTestIncomplete('This test has not been implemented yet.');
+    }
+
+    public function testGenerateUriSuccess(): void
+    {
+        self::markTestIncomplete('This test has not been implemented yet.');
+    }
 }
