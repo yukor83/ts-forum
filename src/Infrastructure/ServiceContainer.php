@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure;
 
+/* /topic/show/9879797979 */
 class ServiceContainer
 {
     public function __construct(
@@ -19,8 +20,9 @@ class ServiceContainer
                 || $registeredService['class'] == $fqdnOrServiceName
             ) {
                 $arguments = [];
+                
                 if(isset($registeredService['arguments'])){
-                    foreach ($registeredService['arguments'] as $argument) {
+                     foreach ($registeredService['arguments'] as $argument) {
                         $arguments[] = $this->getInstanceOf($argument);
                     }
                 }

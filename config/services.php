@@ -6,6 +6,7 @@ use Terricon\Forum\Application\Controller\ForumController;
 use Terricon\Forum\Infrastructure\Persistence\InMemory\InMemoryTopicRepository;
 use Terricon\Forum\Infrastructure\ServiceContainer;
 use Terricon\Forum\Infrastructure\Templating\TemplatingEngine;
+use Terricon\Forum\Application\Controller\DefaultController;
 
 return [
     'services' => [
@@ -30,6 +31,9 @@ return [
                 'topic_repository',
                 'templating_engine',
             ],
+        ],
+        'default_controller' => [
+            'class' => DefaultController::class,
         ],
     ],
 ];
