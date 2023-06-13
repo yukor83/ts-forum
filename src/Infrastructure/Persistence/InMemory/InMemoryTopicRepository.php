@@ -33,9 +33,10 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
 
         $topic = new Topic(
             name: 'Тестовый топик',
-            message: 'Тестовое сообщение топика',
-            author: $topicStarter
-        );
+            firstMessage: new TopicMessage(
+                author: $user1,
+                text: 'Первый ответ на топик',
+        ));
 
         $topic->addMessage(new TopicMessage(
             author: $user1,
