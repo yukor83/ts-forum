@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Terricon\Forum\Infrastructure\Persistence\InMemory;
 
@@ -12,9 +12,19 @@ use Terricon\Forum\Domain\Model\User;
 
 class InMemoryTopicRepository implements TopicRepositoryInterface
 {
-
     public function getById(string $UUID): Topic
     {
+        $this->connection->prepare('SELECT * FROM topics WHERE id = :id');
+        $this->connection->execute(['id' => $UUID]);
+        $result = $this->connection->fetch();
+        //TODO так делать нельзя, надо использовать рефлексию
+        return new Topic(
+            $result['name'],
+            new TopicMessage(
+                new User($result['author']),
+                $result['text']
+            )
+        );
         $faker = Factory::create('ru_RU');
 
         $topicStarter = new User(
@@ -34,9 +44,10 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
 
         $topic = new Topic(
             name: 'Тестовый топик',
-            message: 'Тестовое сообщение топика',
-            author: $topicStarter
-        );
+            firstMessage: new TopicMessage(
+                author: $user1,
+                text: 'Первый ответ на топик',
+        ));
 
         $topic->addMessage(new TopicMessage(
             author: $user1,
@@ -54,5 +65,12 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
     public function persist(Topic $topic): array
     {
         // TODO: Implement persist() method.
+    }
+
+    public function findLastCreatedTopics(int $limit): array
+    {
+        //TODO Для реализации Жуковым Анатолием
+        // Здесь реализовать запрос, который вернет последние $limit объектов топиков
+        return [];
     }
 }

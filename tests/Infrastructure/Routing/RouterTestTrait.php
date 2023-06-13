@@ -20,10 +20,14 @@ trait RouterTestTrait
     {
         $router = $this->getTestingRouter();
         foreach ($this->getRouterConfig() as $allowedRoute) {
-            $testingUri = $this->getTestingRequestUri($allowedRoute);
+            $testingUriParams = $this->getTestingRequestParams($allowedRoute);
+            $testingUri = $this->getTestingRequestUri($allowedRoute, $testingUriParams);
             foreach ($allowedRoute['method'] as $method) {
                 $actualRoute = $router->getRoute($testingUri, $method);
                 self::assertInstanceOf(RouteInterface::class, $actualRoute);
+                self::assertEquals($actualRoute->getController(), $allowedRoute['handler']['controller']);
+                self::assertEquals($actualRoute->getAction(), $allowedRoute['handler']['action']);
+                self::assertEquals($actualRoute->getParameters(), $testingUriParams);
             }
         }
     }
