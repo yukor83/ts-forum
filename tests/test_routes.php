@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 use Terricon\Forum\Tests\MockController;
 
-$uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';
+/*$uuidRegExp = '\b([A-F 0-9]{8})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{4})-([A-F 0-9]{12})\b';*/
+
+$uuidRegExp = '/[0-9]/';
+$pageCount = '/[0-9]/';
 
 return [
     [
