@@ -14,6 +14,17 @@ class InMemoryTopicRepository implements TopicRepositoryInterface
 {
     public function getById(string $UUID): Topic
     {
+        $this->connection->prepare('SELECT * FROM topics WHERE id = :id');
+        $this->connection->execute(['id' => $UUID]);
+        $result = $this->connection->fetch();
+        //TODO так делать нельзя, надо использовать рефлексию
+        return new Topic(
+            $result['name'],
+            new TopicMessage(
+                new User($result['author']),
+                $result['text']
+            )
+        );
         $faker = Factory::create('ru_RU');
 
         $topicStarter = new User(
