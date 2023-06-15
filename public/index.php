@@ -10,37 +10,51 @@ use Faker\Generator;
 
 require_once '../vendor/autoload.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+ini_set('error_reporting', E_ALL);
 
+/*
 $dbServer = 'localhost';
 $dbUser = 'root';
 $dbPass = '12345';
 
-$dbForum = new PDO("mysql:host=".$dbServer, $dbUser, $dbPass);
-$dbForum->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- 
-    $sql = file_get_contents('../sql/create_database_forum.sql');
+    try {
+        $dbForum = new PDO("mysql:host=localhost;dbname=forum", $dbUser, $dbPass);
+        $dbForum->exec('DROP DATABASE forum;');
+        $sql = file_get_contents('../sql/create_database_forum.sql');
+        $dbForum->exec($sql);
+        echo "База данных удалена и создана заново!</br>";
+    } catch (PDOException $e) {
+        $dbForum = new PDO("mysql:host=localhost", $dbUser, $dbPass);
+        $sql = file_get_contents('../sql/create_database_forum.sql');
+        $dbForum->exec($sql);
+        echo "Создана новая базаданных forum!</br>";
+
+    }
+
+    $sql = file_get_contents('../sql/create_table_users.sql');
     $dbForum->exec($sql);
-    echo "База данных создана!";
+    echo "Таблица Users создана!</br>";
+    $dbh = null;
 
     $sql = file_get_contents('../sql/create_table_forums.sql');
     $dbForum->exec($sql);
-    echo "Таблица Forums создана!";
- 
-    $sql = file_get_contents('../sql/create_table_messages.sql');
-    $dbForum->exec($sql);
-    echo "Таблица Messages создана!";
+    echo "Таблица Forums создана!</br>";
  
     $sql = file_get_contents('../sql/create_table_topics.sql');
     $dbForum->exec($sql);
-    echo "Таблица Topics создана!";
- 
-    $sql = file_get_contents('../sql/create_table_users.sql');
-    $dbForum->exec($sql);
-    echo "Таблица Users создана!";
-    
-    $this->faker = Factory::create();
+    echo "Таблица Topics создана!</br>";
 
- $dbForum = null;
+    $sql = file_get_contents('../sql/create_table_messages.sql');
+    $dbForum->exec($sql);
+    echo "Таблица Messages создана!</br>";
+  
+    $dbForum = null;
+*/
+    $faker = Factory::create('ru_RU');
+    $i = $faker->realText($maxNbChars = 200, $indexSize = 2);
+    dump($i);
 
 $routes = require_once '../config/routes.php';
 $services = require_once '../config/services.php';
