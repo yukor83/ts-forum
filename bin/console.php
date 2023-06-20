@@ -9,21 +9,26 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $faker = Factory::create('ru_RU');
 
-$dbServer = 'localhost';
-$dbUser = 'root';
-$dbPass = '12345';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
+$dotenv->load();
+
+$dbServer = $_ENV['DB_HOST'];
+$dbUser = $_ENV['DB_USER'];
+$dbPass = $_ENV['DB_PASS'];
+$dbName = $_ENV['DB_NAME'];
 
     try {
-        $dbForum = new PDO("mysql:host=localhost;dbname=forum", $dbUser, $dbPass);
-        $dbForum->exec('DROP DATABASE forum;');
+        $dbForum = new PDO("mysql:host=$dbServer;dbname=$dbName", $dbUser, $dbPass);
+        $sql = "DROP DATABASE $dbName;";
+        $dbForum->exec($sql);
         $sql = file_get_contents(__DIR__.'/../sql/create_database_forum.sql');
         $dbForum->exec($sql);
         echo "База данных удалена и создана заново!\n";
     } catch (PDOException $e) {
-        $dbForum = new PDO("mysql:host=localhost", $dbUser, $dbPass);
+        $dbForum = new PDO("mysql:host=$dbServer", $dbUser, $dbPass);
         $sql = file_get_contents(__DIR__.'/../sql/create_database_forum.sql');
         $dbForum->exec($sql);
-        echo "Создана новая базаданных forum!\n";
+        echo "Создана новая база данных $dbName!\n";
     }
 
     $sql = file_get_contents(__DIR__.'/../sql/create_table_users.sql');
@@ -41,8 +46,8 @@ $dbPass = '12345';
     $dbForum->exec($sql);
     for ($i = 1; $i < 11; $i++)
     {
-        $name = $faker->realText($maxNbChars = 20, $indexSize = 1);
-        $description = $faker->realText($maxNbChars = 100, $indexSize = 1);
+        $name = $faker->Text($maxNbChars = 20);
+        $description = $faker->Text($maxNbChars = 100);
         $sql = "INSERT forums(name, description, created_at) VALUES ('$name', '$description', DEFAULT)";
         $dbForum->exec($sql);
     }
@@ -56,8 +61,8 @@ $dbPass = '12345';
         {
             $forum_id = $i;
             $user_id = rand(1, 10);
-            $title = $faker->realText($maxNbChars = 20, $indexSize = 1);
-            $description = $faker->realText($maxNbChars = 100, $indexSize = 1);
+            $title = $faker->Text($maxNbChars = 20);
+            $description = $faker->Text($maxNbChars = 100);
             $sql = "INSERT topics(forum_id, user_id, title, description, created_at) VALUES ('$forum_id', '$user_id', '$title', '$description', DEFAULT);";
             $dbForum->exec($sql);
         }
@@ -72,7 +77,7 @@ $dbPass = '12345';
         {
             $topic_id = $i;
             $user_id = rand(1, 10);
-            $message = $faker->realText($maxNbChars = 100, $indexSize = 1);
+            $message = $faker->Text($maxNbChars = 100);
             $sql = "INSERT messages(topic_id, user_id, message, created_at) VALUES ('$topic_id', '$user_id', '$message', DEFAULT);";
             $dbForum->exec($sql);
         }
